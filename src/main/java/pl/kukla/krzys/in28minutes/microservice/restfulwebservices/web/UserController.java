@@ -2,6 +2,8 @@ package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +40,14 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable String id) {
         UserDto userDto = userService.getById(UUID.fromString(id));
+
+        //here we are building link to 'getUsers()' method
+        EntityModel<UserDto> entityModel = new EntityModel<UserDto>(userDto);
+        WebMvcLinkBuilder getUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
+
+        //here we define name of link
+        entityModel.add(getUsersLink.withRel("all-users"));
+//        return entityModel;
 
         return ResponseEntity.ok(userDto);
     }

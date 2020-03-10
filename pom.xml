@@ -52,6 +52,13 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
+		<!-- it allows to generate link to all objects likea all-users -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
