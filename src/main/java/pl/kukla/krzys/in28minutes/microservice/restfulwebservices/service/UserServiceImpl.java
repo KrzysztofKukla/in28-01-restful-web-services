@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.User;
-import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.UserRepository;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.exception.UserNotFoundException;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.repository.UserRepository;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.mapper.UserMapper;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.UserDto;
 
@@ -24,7 +25,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(UUID id) {
-        User user = userRepository.getOne(id);
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException(id.toString()));
         return userMapper.userToUserDto(user);
     }
 

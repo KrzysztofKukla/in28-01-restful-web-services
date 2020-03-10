@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.User;
-import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.UserRepository;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.repository.UserRepository;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.mapper.UserMapper;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.UserDto;
 
