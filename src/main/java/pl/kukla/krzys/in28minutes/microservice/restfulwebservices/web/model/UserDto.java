@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -22,11 +23,14 @@ public class UserDto {
 
     @Null
     private UUID id;
+
+    @NotBlank(message = "name cannot be blank")
     private String name;
 
-    @CreationTimestamp
-    @Null
+    //    @CreationTimestamp
+//    @Null
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+    @Past
     private OffsetDateTime birthDate;
 
 }

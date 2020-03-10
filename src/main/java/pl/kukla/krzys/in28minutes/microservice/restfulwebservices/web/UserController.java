@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.service.UserService;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.UserDto;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity createUser(@Valid @RequestBody UserDto userDto) {
         UserDto savedUser = userService.createUser(userDto);
         return ResponseEntity.created(URI.create("/v1/users/" + savedUser.getId().toString())).build();
 //        HttpHeaders httpHeaders = new HttpHeaders();
