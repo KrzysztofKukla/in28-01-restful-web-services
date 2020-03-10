@@ -40,7 +40,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         User savedUser = userRepository.save(userMapper.userDtoToUser(userDto));
+        log.debug("user has been saved");
         return userMapper.userToUserDto(savedUser);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        userRepository.deleteById(UUID.fromString(id));
+        log.debug("User has been deleted");
     }
 
 }

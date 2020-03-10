@@ -3,6 +3,7 @@ package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,12 @@ public class UserController {
 //        HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.add("location", "/v1/users/" + savedUser.getId().toString());
 //        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable String id) {
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
