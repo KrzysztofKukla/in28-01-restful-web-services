@@ -3,6 +3,7 @@ package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.service.UserService;
@@ -20,7 +20,6 @@ import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.User
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -38,11 +37,13 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDto>> getUsers() {
         List<UserDto> users = userService.getAll();
+        String message = messageSource.getMessage("good.morning.message", null, LocaleContextHolder.getLocale());
+        log.debug(message);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable String id, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+    public ResponseEntity<UserDto> getUser(@PathVariable String id) {
         UserDto userDto = userService.getById(UUID.fromString(id));
 
         //here we are building link to 'getUsers()' method
@@ -52,8 +53,6 @@ public class UserController {
         //here we define name of link
         entityModel.add(getUsersLink.withRel("all-users"));
 //        return entityModel;
-
-        userDto.setName(messageSource.getMessage("good.morning.message", null, locale));
 
         return ResponseEntity.ok(userDto);
     }
