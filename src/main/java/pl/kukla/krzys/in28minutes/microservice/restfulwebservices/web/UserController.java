@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +45,11 @@ public class UserController {
         UserDto userDto = userService.getById(UUID.fromString(id));
 
         //here we are building link to 'getUsers()' method
-        EntityModel<UserDto> entityModel = new EntityModel<UserDto>(userDto);
-        WebMvcLinkBuilder getUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
+//        EntityModel<UserDto> entityModel = new EntityModel<UserDto>(userDto);
+//        WebMvcLinkBuilder getUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
 
         //here we define name of link
-        entityModel.add(getUsersLink.withRel("all-users"));
+//        entityModel.add(getUsersLink.withRel("all-users"));
 //        return entityModel;
 
         return ResponseEntity.ok(userDto);
