@@ -39,12 +39,12 @@ public class UserBootstrap implements CommandLineRunner {
 //        User second = User.builder().birthDate(Timestamp.valueOf(LocalDateTime.now())).name("second").build();
 //        User third = User.builder().birthDate(Timestamp.valueOf(LocalDateTime.now())).name("third").build();
 
-        UserDto first = UserDto.builder().birthDate(OffsetDateTime.now()).name("first").build();
-        UserDto second = UserDto.builder().birthDate(OffsetDateTime.now()).name("second").build();
-        UserDto third = UserDto.builder().birthDate(OffsetDateTime.now()).name("third").build();
+        UserDto first = UserDto.builder().birthDate(OffsetDateTime.now()).name("first").password("pass1").build();
+        UserDto second = UserDto.builder().birthDate(OffsetDateTime.now()).name("second").password("pass2").build();
+        UserDto third = UserDto.builder().birthDate(OffsetDateTime.now()).name("third").password("pass3").build();
 
-        List<UserDto> users = Arrays.asList(first, second, third);
-        List<User> entityUsers = users.stream().map(userMapper::userDtoToUser).collect(Collectors.toList());
+        List<UserDto> usersDto = Arrays.asList(first, second, third);
+        List<User> entityUsers = usersDto.stream().map(userMapper::userDtoToUser).collect(Collectors.toList());
         userRepository.saveAll(entityUsers);
         log.debug("Users have been saved");
 

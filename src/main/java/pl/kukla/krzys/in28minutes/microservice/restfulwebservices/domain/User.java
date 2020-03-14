@@ -33,8 +33,10 @@ public class User {
     private UUID id;
     private String name;
 
-//    @CreationTimestamp
+    //    @CreationTimestamp
     @Column(updatable = false)
     private Timestamp birthDate;
+
+    private String password;
 
 }

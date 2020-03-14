@@ -1,6 +1,7 @@
 package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,5 +36,8 @@ public class UserDto {
     @Past
 //    @ApiModelProperty(notes = "Birth date must be in the past") //swagger
     private OffsetDateTime birthDate;
+
+    @JsonIgnore
+    private String password;
 
 }
