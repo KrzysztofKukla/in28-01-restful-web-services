@@ -35,6 +35,12 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- it allows to automatically configuration basic security for us -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<!-- hal allows easy way to hyperlink between resources in our API -->
 		<!-- hal identifies the links from actuator and shows them on the screen, so we are able to click them -->
 		<dependency>
