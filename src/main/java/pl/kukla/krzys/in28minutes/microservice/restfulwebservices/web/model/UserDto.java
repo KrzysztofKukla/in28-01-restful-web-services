@@ -1,5 +1,6 @@
 package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonFilter("customFilterId")
 //@ApiModel(description = "UserDto description")
 public class UserDto {
 

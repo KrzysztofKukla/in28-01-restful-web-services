@@ -1,10 +1,14 @@
 package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +44,15 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/dynamic-filter")
+    public ResponseEntity<MappingJacksonValue> getUsersDynamicFiltering() {
+        List<UserDto> users = userService.getAll();
+        String message = messageSource.getMessage("good.morning.message", null, LocaleContextHolder.getLocale());
+        log.debug(message);
+        MappingJacksonValue mappingJacksonValue = dynamicFilterFields(users);
+        return ResponseEntity.ok(mappingJacksonValue);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable String id) {
         UserDto userDto = userService.getById(UUID.fromString(id));
@@ -68,6 +81,16 @@ public class UserController {
     public ResponseEntity deleteUser(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private MappingJacksonValue dynamicFilterFields(List<UserDto> users) {
+
+        SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.filterOutAllExcept("name");
+        FilterProvider filterProvider = new SimpleFilterProvider()
+            .addFilter("customFilterId", simpleBeanPropertyFilter);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
+        mappingJacksonValue.setFilters(filterProvider);
+        return mappingJacksonValue;
     }
 
 }
