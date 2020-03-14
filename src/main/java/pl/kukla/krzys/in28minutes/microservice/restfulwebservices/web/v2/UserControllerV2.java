@@ -14,6 +14,7 @@ import java.util.List;
  * @author Krzysztof Kukla
  */
 @RestController
+//Versioning by uri is preferred, because it allows caching services
 @RequestMapping("/v2/users")
 @RequiredArgsConstructor
 public class UserControllerV2 {
@@ -24,5 +25,18 @@ public class UserControllerV2 {
         List<UserDtoV2> users = userServiceV2.getAll();
         return ResponseEntity.ok(users);
     }
+
+    //VERSIONING TYPES:
+    //by params
+//    @GetMapping(value = "/param", params = "version=1")
+//    @GetMapping(value = "/param", params = "version=2")
+
+    //by header - use in Headers X-API-VERSION = 1
+//    @GetMapping(value = "/header", headers = "X-API-VERSION = 1")
+//    @GetMapping(value = "/header", headers = "X-API-VERSION = 2")
+
+    //by produces // use Accept = 'application/vnd.company.app-v1+json'
+//    @GetMapping(value = "/produces", produces = "application/vnd.company.app-v1+json")
+//    @GetMapping(value = "/produces", produces = "application/vnd.company.app-v2+json")
 
 }
