@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.Post;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -40,5 +43,7 @@ public class UserDto {
 
     @JsonIgnore
     private String password;
+
+    private Set<Post> posts = new HashSet<>();
 
 }
