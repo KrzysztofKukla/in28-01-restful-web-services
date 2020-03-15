@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.service.PostService;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.service.UserService;
+import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.PostDto;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.web.model.UserDto;
 
 import javax.validation.Valid;
@@ -34,6 +36,7 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
     private final MessageSource messageSource;
 
     @GetMapping
@@ -66,6 +69,12 @@ public class UserController {
 //        return entityModel;
 
         return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<List<PostDto>> getPostsForUser(@PathVariable UUID userId) {
+        List<PostDto> posts = postService.getPostByUserId(userId);
+        return ResponseEntity.ok(posts);
     }
 
     @PostMapping

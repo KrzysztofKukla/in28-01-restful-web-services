@@ -1,5 +1,6 @@
 package pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -35,8 +36,9 @@ public class Post extends BaseEntity {
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id") //name of column in User table
+    @JsonIgnore
     private User user;
 
 }
