@@ -86,6 +86,14 @@ public class UserController {
 //        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/{userId}/posts")
+    public ResponseEntity addPostToUser(@PathVariable UUID userId, @Valid @RequestBody PostDto postDto) {
+        PostDto savedPostDto = postService.createPostForUser(userId, postDto);
+        URI location = URI.create("/users/" + userId.toString() + "/posts" + savedPostDto.getId().toString());
+        return ResponseEntity.created(location).build();
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable String id) {
         userService.deleteById(id);

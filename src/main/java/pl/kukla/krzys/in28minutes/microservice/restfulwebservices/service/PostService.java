@@ -12,4 +12,6 @@ public interface PostService {
 
     List<PostDto> getPostByUserId(UUID userId);
 
+    PostDto createPostForUser(UUID userId, PostDto postDto);
+
 }

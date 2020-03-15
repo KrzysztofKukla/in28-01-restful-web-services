@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.kukla.krzys.in28minutes.microservice.restfulwebservices.domain.User;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
 import java.util.UUID;
 
 /**
@@ -17,8 +19,10 @@ import java.util.UUID;
 @Builder
 public class PostDto {
 
+    @Null
     private UUID id;
 
+    @NotBlank
     private String description;
 
     private User user;
